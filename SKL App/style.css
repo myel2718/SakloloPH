@@ -1,0 +1,592 @@
+
+/* =====================================
+   SAKLOLOPH - MAIN DESIGN
+===================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --primary-light: #eff6ff;
+    --background: #f1f5f9;
+    --surface: #ffffff;
+    --text: #1e293b;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --success: #15803d;
+    --danger: #dc2626;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    padding-bottom: 95px;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+/* =====================================
+   HEADER
+===================================== */
+
+.app-header {
+    background: linear-gradient(135deg, #1e40af, #2563eb);
+    color: white;
+    text-align: center;
+    padding: 28px 16px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+}
+
+.app-header h1 {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+}
+
+.app-header p {
+    margin: 7px 0 0;
+    font-size: 14px;
+    opacity: 0.95;
+}
+
+/* =====================================
+   MAIN CONTENT
+===================================== */
+
+main {
+    width: 100%;
+    max-width: 850px;
+    margin: 25px auto;
+    padding: 0 18px;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+/* =====================================
+   CONTENT CARDS
+===================================== */
+
+.panel {
+    background: var(--surface);
+    padding: 23px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    box-shadow: 0 3px 12px rgba(15, 23, 42, 0.05);
+}
+
+.panel h2 {
+    color: #1e40af;
+    font-size: 21px;
+    line-height: 1.35;
+    margin: 0 0 10px;
+}
+
+.panel h3 {
+    color: #1d4ed8;
+    font-size: 17px;
+    margin-top: 24px;
+    margin-bottom: 10px;
+}
+
+.panel p {
+    color: #475569;
+    margin: 8px 0 14px;
+    font-size: 14px;
+}
+
+/* =====================================
+   LABELS AND INPUTS
+===================================== */
+
+label {
+    display: block;
+    margin-top: 16px;
+    margin-bottom: 7px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #334155;
+}
+
+input,
+select,
+textarea {
+    display: block;
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+    font-size: 15px;
+    font-family: inherit;
+    color: var(--text);
+    background: white;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* =====================================
+   BUTTONS
+===================================== */
+
+button {
+    border: none;
+    background: var(--primary);
+    color: white;
+    padding: 12px 17px;
+    border-radius: 9px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: inherit;
+    transition: background 0.2s, transform 0.15s;
+}
+
+button:hover {
+    background: var(--primary-dark);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+button:focus-visible {
+    outline: 3px solid #93c5fd;
+    outline-offset: 2px;
+}
+
+.panel > button,
+form button {
+    margin-top: 16px;
+    width: 100%;
+}
+
+/* =====================================
+   EMERGENCY GUIDE BUTTONS
+===================================== */
+
+.emergency-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.emergency-buttons button {
+    min-height: 52px;
+    font-size: 15px;
+    padding: 13px 8px;
+}
+
+/* =====================================
+   RESULT BOXES
+===================================== */
+
+.result-box {
+    margin-top: 18px;
+    padding: 18px;
+    border-radius: 11px;
+    background: var(--primary-light);
+    border: 1px solid #bfdbfe;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+.result-box h3 {
+    color: #1e40af;
+    margin-top: 0;
+    margin-bottom: 14px;
+}
+
+.result-box h4 {
+    color: #1d4ed8;
+    margin-top: 20px;
+    margin-bottom: 8px;
+}
+
+.result-box ol,
+.result-box ul {
+    padding-left: 23px;
+}
+
+.result-box li {
+    margin-bottom: 9px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* =====================================
+   EVACUATION CENTER CARDS
+===================================== */
+
+.center-card,
+.hotline-card,
+.contact-card {
+    background: white;
+    border: 1px solid var(--border);
+    padding: 16px;
+    margin-top: 12px;
+    border-radius: 11px;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+}
+
+.center-card h3,
+.center-card h4 {
+    color: #1e40af;
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.center-card p {
+    margin: 6px 0;
+}
+
+.center-card button {
+    width: 100%;
+    margin-top: 12px;
+}
+
+.status {
+    display: inline-block;
+    background: #fef3c7;
+    color: #92400e;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* =====================================
+   HOTLINE CARDS
+===================================== */
+
+.hotline-card strong {
+    color: #334155;
+    font-size: 14px;
+}
+
+.hotline-card p {
+    color: #1e293b;
+    font-size: 22px;
+    font-weight: 700;
+    margin: 8px 0;
+}
+
+.hotline-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+}
+
+.hotline-actions button {
+    flex: 1;
+    min-width: 120px;
+}
+
+.copy-button {
+    background: #0f766e;
+}
+
+.copy-button:hover {
+    background: #115e59;
+}
+
+.call-button {
+    background: var(--success);
+}
+
+.call-button:hover {
+    background: #166534;
+}
+
+.secondary-button {
+    background: #64748b;
+}
+
+.secondary-button:hover {
+    background: #475569;
+}
+
+.delete-button {
+    background: var(--danger);
+}
+
+.delete-button:hover {
+    background: #b91c1c;
+}
+
+.small-note {
+    color: var(--muted) !important;
+    font-size: 12px !important;
+}
+
+/* =====================================
+   GO-BAG CHECKLIST
+===================================== */
+
+.checklist {
+    margin-top: 20px;
+}
+
+.checklist h3 {
+    padding-bottom: 9px;
+    border-bottom: 1px solid var(--border);
+}
+
+.checklist label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #f8fafc;
+    padding: 13px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    margin-top: 9px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.checklist label:has(input:checked) {
+    background: #dcfce7;
+    border-color: #86efac;
+}
+
+.checklist input {
+    width: 19px;
+    height: 19px;
+    margin: 0;
+    flex-shrink: 0;
+    accent-color: var(--success);
+}
+
+/* =====================================
+   GO-BAG PROGRESS BAR
+===================================== */
+
+.progress-area {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+}
+
+#gobag-progress {
+    font-weight: 700;
+    color: #334155;
+}
+
+.progress-track {
+    width: 100%;
+    height: 13px;
+    background: #e2e8f0;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+#gobag-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: #16a34a;
+    border-radius: 20px;
+    transition: width 0.3s ease;
+}
+
+/* =====================================
+   CONTACT CARDS
+===================================== */
+
+.contact-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.contact-card p {
+    margin: 2px 0;
+}
+
+.contact-card button {
+    width: 100%;
+}
+
+/* =====================================
+   BOTTOM NAVIGATION
+===================================== */
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: white;
+    border-top: 1px solid var(--border);
+    box-shadow: 0 -3px 12px rgba(15, 23, 42, 0.07);
+    padding: 9px 5px;
+    padding-bottom: max(9px, env(safe-area-inset-bottom));
+    z-index: 1000;
+}
+
+.bottom-nav button {
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+    color: #64748b;
+    padding: 7px 3px;
+    font-size: 21px;
+    border-radius: 9px;
+}
+
+.bottom-nav button:hover {
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+.bottom-nav span {
+    display: block;
+    font-size: 11px;
+    margin-top: 4px;
+    font-weight: 600;
+}
+
+/* =====================================
+   RESPONSIVE DESIGN - TABLETS
+===================================== */
+
+@media (max-width: 700px) {
+    main {
+        padding: 0 13px;
+        margin: 18px auto;
+    }
+
+    .panel {
+        padding: 19px;
+    }
+}
+
+/* =====================================
+   RESPONSIVE DESIGN - PHONES
+===================================== */
+
+@media (max-width: 480px) {
+    body {
+        padding-bottom: 85px;
+    }
+
+    .app-header {
+        padding: 23px 12px;
+    }
+
+    .app-header h1 {
+        font-size: 25px;
+    }
+
+    .app-header p {
+        font-size: 12px;
+    }
+
+    main {
+        padding: 0 11px;
+        margin: 13px auto;
+    }
+
+    .panel {
+        padding: 16px;
+        margin-bottom: 14px;
+        border-radius: 12px;
+    }
+
+    .panel h2 {
+        font-size: 19px;
+    }
+
+    .emergency-buttons {
+        grid-template-columns: 1fr;
+        gap: 9px;
+    }
+
+    .emergency-buttons button {
+        width: 100%;
+        min-height: 47px;
+    }
+
+    .result-box {
+        padding: 14px;
+    }
+
+    .hotline-actions {
+        flex-direction: column;
+    }
+
+    .hotline-actions button {
+        width: 100%;
+    }
+
+    .bottom-nav button {
+        font-size: 19px;
+    }
+
+    .bottom-nav span {
+        font-size: 10px;
+    }
+}
+
+/* Evacuation center details shown inside each card */
+
+.center-inline-details {
+    margin-top: 15px;
+    padding: 15px;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 10px;
+    overflow-wrap: anywhere;
+}
+
+.center-inline-details h3 {
+    margin-top: 8px;
+    color: #1e40af;
+}
+
+.center-inline-details .hotline-card {
+    margin-top: 12px;
+}
+
+.center-inline-details hr {
+    border: 0;
+    border-top: 1px solid #bfdbfe;
+    margin: 18px 0;
+}
+
+.center-inline-details .hotline-actions {
+    display: flex;
+    gap: 8px;
+}

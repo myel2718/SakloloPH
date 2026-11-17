@@ -1,0 +1,401 @@
+
+<!DOCTYPE html>
+<html lang="fil">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SakloloPH - Gabay sa Paghahanda sa Sakuna</title>
+
+    <meta name="theme-color" content="#2563eb">
+    <meta name="description" content="Offline na gabay sa paghahanda ng pamilya sa panahon ng sakuna.">
+
+    <!-- App installation -->
+    <link rel="manifest" href="./manifest.json">
+    <link rel="apple-touch-icon" href="./icons/icon-192.png">
+
+    <!-- Main stylesheet -->
+    <link rel="stylesheet" href="./style.css?v=2">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="app-header">
+        <h1>📢 SakloloPH</h1>
+        <p id="app-subtitle">Gabay sa Paghahanda ng Pamilya sa Sakuna</p>
+    </header>
+
+    <main>
+
+        <!-- HOME PAGE -->
+        <section id="home-page" class="page active">
+
+            <div class="panel">
+                <h2 id="welcome-title">Maligayang pagdating sa SakloloPH!</h2>
+                <p id="welcome-description">
+                    Ihanda ang inyong pamilya bago magkaroon ng sakuna.
+                </p>
+            </div>
+
+            <!-- EMERGENCY GUIDES -->
+            <div class="panel">
+                <h2 id="guides-title">Mga Gabay sa Sakuna</h2>
+                <p id="guides-description">
+                    Pumili ng sakuna upang makita ang mga gabay sa kaligtasan.
+                </p>
+
+                <div class="emergency-buttons">
+                    <button type="button" onclick="showGuide('flood')" id="flood-button">
+                        🌊 Baha
+                    </button>
+
+                    <button type="button" onclick="showGuide('earthquake')" id="earthquake-button">
+                        🌎 Lindol
+                    </button>
+
+                    <button type="button" onclick="showGuide('fire')" id="fire-button">
+                        🔥 Sunog
+                    </button>
+                </div>
+
+                <div id="guide-result" class="result-box hidden"></div>
+            </div>
+
+            <!-- EVACUATION CENTERS -->
+            <div class="panel">
+                <h2 id="centers-title">Mga Evacuation Center</h2>
+                <p id="centers-description">
+                    Piliin ang inyong lungsod upang makita ang mga evacuation center at kanilang mga emergency contact.
+                </p>
+
+                <label for="city-select" id="city-label">
+                    Pumili ng Lungsod
+                </label>
+
+                <select id="city-select" onchange="showCityCenters()">
+                    <option value="">-- Pumili ng lungsod --</option>
+                    <option value="makati">Lungsod ng Makati</option>
+                    <option value="sjdm">Lungsod ng San Jose del Monte, Bulacan</option>
+                </select>
+
+                <div id="city-result" class="result-box"></div>
+                <div id="center-details" class="result-box hidden"></div>
+            </div>
+
+            <!-- NATIONAL HOTLINE -->
+            <div class="panel">
+                <h2 id="national-hotlines-title">
+                    Pambansang Emergency Hotline
+                </h2>
+
+                <div class="hotline-card">
+                    <strong id="emergency-hotline-label">Emergency Hotline</strong>
+                    <p>911</p>
+
+                    <button
+                        type="button"
+                        class="copy-button"
+                        onclick="copyText('911')"
+                        id="copy-national-button">
+                        Kopyahin ang Numero
+                    </button>
+                </div>
+
+                <p class="small-note" id="national-hotline-note">
+                    Tiyaking tama at napapanahon ang mga numero bago gamitin sa oras ng sakuna.
+                </p>
+            </div>
+
+            <!-- FAMILY EMERGENCY PLAN -->
+            <div class="panel">
+                <h2 id="plan-title">
+                    Plano ng Pamilya sa Panahon ng Sakuna
+                </h2>
+
+                <p id="plan-description">
+                    Ilagay ang pangunahing impormasyon tungkol sa inyong pamilya upang makagawa ng simpleng plano.
+                </p>
+
+                <label for="family-count" id="family-label">
+                    Bilang ng miyembro ng pamilya
+                </label>
+                <input type="number" id="family-count" min="1" placeholder="Halimbawa: 5">
+
+                <label for="children-count" id="children-label">
+                    Bilang ng mga bata
+                </label>
+                <input type="number" id="children-count" min="0" placeholder="Halimbawa: 2">
+
+                <label for="elderly-count" id="elderly-label">
+                    Bilang ng mga senior citizen
+                </label>
+                <input type="number" id="elderly-count" min="0" placeholder="Halimbawa: 1">
+
+                <label for="assistance-count" id="assistance-label">
+                    Mga nangangailangan ng karagdagang tulong
+                </label>
+                <input type="number" id="assistance-count" min="0" placeholder="Halimbawa: 1">
+
+                <button
+                    type="button"
+                    onclick="generatePlan()"
+                    id="generate-plan-button">
+                    Gumawa ng Plano
+                </button>
+
+                <div id="plan-result" class="result-box hidden"></div>
+            </div>
+
+        </section>
+
+        <!-- GO-BAG PAGE -->
+        <section id="gobag-page" class="page">
+
+            <div class="panel">
+                <h2 id="gobag-title">🎒 Checklist ng Emergency Go-Bag</h2>
+
+                <p id="gobag-description">
+                    Lagyan ng tsek ang mga gamit na mayroon na kayo. Awtomatikong mase-save ang inyong progreso sa device na ito.
+                </p>
+
+                <div class="progress-area">
+                    <p id="gobag-progress">0 na gamit ang naihanda</p>
+
+                    <div class="progress-track">
+                        <div id="gobag-progress-bar"></div>
+                    </div>
+                </div>
+
+                <div class="checklist">
+
+                    <h3 id="food-heading">Pagkain at Tubig</h3>
+
+                    <label>
+                        <input type="checkbox" data-en="Drinking water" data-fil="Inuming tubig">
+                        Inuming tubig
+                    </label>
+
+                    <label>
+                        <input type="checkbox" data-en="Ready-to-eat food" data-fil="Pagkaing hindi na kailangang lutuin">
+                        Pagkaing hindi na kailangang lutuin
+                    </label>
+
+                    <label>
+                        <input type="checkbox" data-en="Biscuits or energy bars" data-fil="Biskwit o energy bar">
+                        Biskwit o energy bar
+                    </label>
+
+                    <label>
+                        <input type="checkbox" data-en="Can opener and utensils" data-fil="Pambukas ng de-lata at mga kubyertos">
+                        Pambukas ng de-lata at mga kubyertos
+                    </label>
+
+                    <h3 id="health-heading">Kalusugan at Kaligtasan</h3>
+
+                    <label>
+                        <input type="checkbox" data-en="First-aid kit" data-fil="Kagamitang pangunang lunas">
+                        Kagamitang pangunang lunas
+                    </label>
+
+                    <label>
+                        <input type="checkbox" data-en="Personal medicines" data-fil="Mga personal na gamot">
+                        Mga personal na gamot
+                    </label>
+
+                    <label>
+                        <input type="checkbox" data-en="Face masks" data-fil="Mga face mask">
+                        Mga face mask
+                    </label>
+
+                    <label>
+                        <input type="checkbox" data-en="Alcohol or hand sanitizer" data-fil="Alkohol o hand sanitizer">
+                        Alkohol o hand sanitizer
+                    </label>
+
+                    <label>
+                        <input type="checkbox" data-en="Hygiene supplies" data-fil="Mga gamit sa personal na kalinisan">
+                        Mga gamit sa personal na kalinisan
+                    </label>
+
+                    <h3 id="equipment-heading">Mga Kagamitang Pang-emergency</h3>
+
+                    <label>
+                        <input type="checkbox" data-en="Flashlight" data-fil="Flashlight">
+                        Flashlight
+                    </label>
+
+                    <label>
+                        <input type="checkbox" data-en="Extra batteries" data-fil="Ekstrang baterya">
+                        Ekstrang baterya
+                    </label>
+
+                    <label>
+                        <input type="checkbox" data-en="Power bank" data-fil="Power bank">
+                        Power bank
+                    </label>
+
+                    <label>
+                        <input type="checkbox" data-en="Whistle" data-fil="Pito">
+                        Pito
+                    </label>
+
+                    <label>
+                        <input type="checkbox" data-en="Battery-powered radio" data-fil="Radyo na de-baterya">
+                        Radyo na de-baterya
+                    </label>
+
+                    <h3 id="documents-heading">
+                        Mahahalagang Dokumento at Personal na Gamit
+                    </h3>
+
+                    <label>
+                        <input type="checkbox" data-en="Copies of important documents" data-fil="Mga kopya ng mahahalagang dokumento">
+                        Mga kopya ng mahahalagang dokumento
+                    </label>
+
+                    <label>
+                        <input type="checkbox" data-en="Emergency contact list" data-fil="Listahan ng emergency contact">
+                        Listahan ng emergency contact
+                    </label>
+
+                    <label>
+                        <input type="checkbox" data-en="Extra clothes" data-fil="Ekstrang damit">
+                        Ekstrang damit
+                    </label>
+
+                    <label>
+                        <input type="checkbox" data-en="Cash in small bills" data-fil="Pera na may maliliit na denominasyon">
+                        Pera na may maliliit na denominasyon
+                    </label>
+
+                    <label>
+                        <input type="checkbox" data-en="Waterproof bag" data-fil="Supot o bag na hindi pinapasok ng tubig">
+                        Supot o bag na hindi pinapasok ng tubig
+                    </label>
+
+                </div>
+
+                <button
+                    type="button"
+                    class="secondary-button"
+                    onclick="resetGoBag()"
+                    id="reset-gobag-button">
+                    I-reset ang Checklist
+                </button>
+            </div>
+
+        </section>
+
+        <!-- CONTACTS PAGE -->
+        <section id="contacts-page" class="page">
+
+            <div class="panel">
+                <h2 id="contacts-title">📞 Mga Emergency Contact ng Pamilya</h2>
+
+                <p id="contacts-description">
+                    I-save ang mahahalagang numero ng inyong pamilya at mga pinagkakatiwalaang tao.
+                </p>
+
+                <form id="contact-form">
+
+                    <label for="contact-name" id="contact-name-label">
+                        Pangalan
+                    </label>
+                    <input type="text" id="contact-name" required placeholder="Halimbawa: Nanay">
+
+                    <label for="contact-number" id="contact-number-label">
+                        Numero ng Telepono
+                    </label>
+                    <input type="tel" id="contact-number" required placeholder="Halimbawa: 09XXXXXXXXX">
+
+                    <label for="contact-relationship" id="contact-relationship-label">
+                        Relasyon
+                    </label>
+                    <input type="text" id="contact-relationship" placeholder="Halimbawa: Magulang">
+
+                    <button type="submit" id="add-contact-button">
+                        Magdagdag ng Contact
+                    </button>
+
+                </form>
+
+                <div id="contact-list"></div>
+            </div>
+
+        </section>
+
+        <!-- SETTINGS PAGE -->
+        <section id="settings-page" class="page">
+
+            <div class="panel">
+                <h2 id="settings-title">⚙️ Mga Setting</h2>
+
+                <label for="language-select" id="language-label">
+                    Wika / Language
+                </label>
+
+                <select id="language-select" onchange="changeLanguage()">
+                    <option value="en">English</option>
+                    <option value="fil">Filipino</option>
+                </select>
+            </div>
+
+            <div class="panel">
+                <h2 id="about-title">Tungkol sa SakloloPH</h2>
+
+                <p id="about-description">
+                    Ang SakloloPH ay isang offline na gabay sa paghahanda ng pamilya sa panahon ng sakuna. Nagbibigay ito ng mga gabay sa kaligtasan, plano ng pamilya, checklist ng Go-Bag, at mga emergency contact.
+                </p>
+
+                <p id="about-warning">
+                    Ito ay isang prototype para sa proyekto ng mag-aaral. Kailangang kumpirmahin sa lokal na pamahalaan ang mga lokasyon ng evacuation center at mga numero ng hotline.
+                </p>
+            </div>
+
+            <div class="panel">
+                <h2 id="offline-title">Paggamit Nang Walang Internet</h2>
+
+                <p id="offline-description">
+                    Buksan muna ang app habang may internet upang ma-save ang mga pangunahing file nito.
+                </p>
+
+                <p id="offline-storage">
+                    Ang mga contact, piniling wika, at progreso ng Go-Bag ay naka-save sa browser ng device na ito.
+                </p>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- BOTTOM NAVIGATION -->
+    <nav class="bottom-nav">
+
+        <button type="button" onclick="showPage('home-page')">
+            🏠
+            <span id="nav-home">Home</span>
+        </button>
+
+        <button type="button" onclick="showPage('gobag-page')">
+            🎒
+            <span id="nav-gobag">Go-Bag</span>
+        </button>
+
+        <button type="button" onclick="showPage('contacts-page')">
+            📞
+            <span id="nav-contacts">Contacts</span>
+        </button>
+
+        <button type="button" onclick="showPage('settings-page')">
+            ☰
+            <span id="nav-settings">Settings</span>
+        </button>
+
+    </nav>
+
+    <!-- Main JavaScript -->
+    <script src="./script.js?v=2"></script>
+
+</body>
+</html>
